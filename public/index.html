@@ -1,30 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sk">
 <head>
   <meta charset="UTF-8" />
   <title>Freak AI Asistent</title>
+  <style>
+    body {
+      background: #000;
+      color: #0ff;
+      font-family: monospace;
+      text-align: center;
+      padding: 2em;
+    }
+    img {
+      width: 150px;
+    }
+    textarea {
+      width: 80%;
+      height: 100px;
+      margin: 20px 0;
+    }
+    button {
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+    pre {
+      background: #111;
+      color: #0f0;
+      padding: 1em;
+      border-radius: 5px;
+      text-align: left;
+      max-width: 80%;
+      margin: 20px auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+  </style>
 </head>
 <body>
-  <img src="/avatar.png" alt="Freak Patrick Logo" />
+  <img src="avatar.png" alt="Freak Patrick Logo" />
   <h1>Freak AI Asistent</h1>
-  <textarea id="userInput" placeholder="Napíš svoju otázku..."></textarea><br/>
+  <textarea id="userInput" placeholder="Napíš svoju otázku..."></textarea><br>
   <button onclick="sendMessage()">Odoslať</button>
-  <pre id="response"></pre>
+  <pre id="response">Odpoveď sa zobrazí tu...</pre>
 
   <script>
     async function sendMessage() {
       const input = document.getElementById('userInput').value;
-      const response = document.getElementById('response');
-      response.textContent = "Spracovávam...";
+      const responseElement = document.getElementById('response');
+      responseElement.textContent = "Spracúvam...";
 
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: input })
       });
 
       const data = await res.json();
-      response.textContent = data.response;
+      responseElement.textContent = data.response;
     }
   </script>
 </body>
