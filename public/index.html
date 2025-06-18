@@ -1,14 +1,31 @@
-<script>
-  async function sendMessage() {
-    const input = document.getElementById('userInput').value;
-    const responseDiv = document.getElementById('response');
-    responseDiv.textContent = "Spracúvam...";
-    const res = await fetch('/api/chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: input })
-    });
-    const data = await res.json();
-    responseDiv.textContent = data.response;
-  }
-</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Freak AI Asistent</title>
+</head>
+<body>
+  <img src="/avatar.png" alt="Freak Patrick Logo" />
+  <h1>Freak AI Asistent</h1>
+  <textarea id="userInput" placeholder="Napíš svoju otázku..."></textarea><br/>
+  <button onclick="sendMessage()">Odoslať</button>
+  <pre id="response"></pre>
+
+  <script>
+    async function sendMessage() {
+      const input = document.getElementById('userInput').value;
+      const response = document.getElementById('response');
+      response.textContent = "Spracovávam...";
+
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: input })
+      });
+
+      const data = await res.json();
+      response.textContent = data.response;
+    }
+  </script>
+</body>
+</html>
